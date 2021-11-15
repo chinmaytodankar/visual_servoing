@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<robot name="platform" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo reference="object">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="circle1">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo reference="circle2">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/DarkGreen</material>
+    </gazebo>
+
+    <gazebo reference="circle3">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <gazebo reference="circle4">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Purple</material>
+    </gazebo>
+	<xacro:property name="PI" value="3.1415926535897931"/>
+	<xacro:property name="objectLength" value="0.25"/>
+	<xacro:property name="objectWidth" value="0.25"/>
+	<xacro:property name="objectHeight" value="0.05"/>
+    <xacro:property name="world_offset" value="0.0"/>
+    <xacro:property name="circle_offset" value="0.075"/>
+    <xacro:property name="circleRadius" value="0.025"/>
+    <xacro:property name="circleHeight" value="0.005"/>
+	<xacro:property name="mass" value="1"/>
+
+	<link name="world"/>
+
+
+	<joint name="fixed" type="fixed">
+		<parent link="world"/>
+		<child link="object"/>
+	</joint>
+
+	<link name="object">
+        
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="${objectLength} ${objectWidth} ${objectHeight}"/>
+			</geometry>
+		</collision>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="${objectLength} ${objectWidth} ${objectHeight}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia
+			  ixx="${mass / 12.0 * (objectHeight*objectHeight + objectLength*objectLength)}" ixy="0.0" ixz="0.0"
+			  iyy="${mass / 12.0 * (objectHeight*objectHeight + objectWidth*objectWidth)}" iyz="0.0"
+			  izz="${mass / 12.0 * (objectWidth*objectWidth + objectLength*objectLength)}"/>
+		</inertial>
+	</link>
+
+    <joint name="fixed1" type="fixed">
+		<parent link="object"/>
+		<child link="circle1"/>
+	</joint>
+
+    <link name="circle1">
+        <collision>
+            <origin xyz="${world_offset-circle_offset} ${circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="${world_offset-circle_offset} ${circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </visual>
+
+        <inertial>
+			<origin xyz="${world_offset-circle_offset} ${circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia
+			  ixx="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" ixy="0.0" ixz="0.0"
+			  iyy="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" iyz="0.0"
+			  izz="${mass / 2.0 * (circleRadius*circleRadius)}"/>
+		</inertial>
+    </link>
+
+    <joint name="fixed2" type="fixed">
+		<parent link="object"/>
+		<child link="circle2"/>
+	</joint>
+
+    <link name="circle2">
+        <collision>
+            <origin xyz="${world_offset+circle_offset} ${circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="${world_offset+circle_offset} ${circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </visual>
+
+        <inertial>
+			<origin xyz="${world_offset+circle_offset} ${circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia
+			  ixx="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" ixy="0.0" ixz="0.0"
+			  iyy="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" iyz="0.0"
+			  izz="${mass / 2.0 * (circleRadius*circleRadius)}"/>
+		</inertial>
+    </link>
+
+    <joint name="fixed3" type="fixed">
+		<parent link="object"/>
+		<child link="circle3"/>
+	</joint>
+
+    <link name="circle3">
+        <collision>
+            <origin xyz="${world_offset+circle_offset} ${-circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="${world_offset+circle_offset} ${-circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </visual>
+
+        <inertial>
+			<origin xyz="${world_offset+circle_offset} ${-circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia
+			  ixx="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" ixy="0.0" ixz="0.0"
+			  iyy="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" iyz="0.0"
+			  izz="${mass / 2.0 * (circleRadius*circleRadius)}"/>
+		</inertial>
+    </link>
+
+    <joint name="fixed4" type="fixed">
+		<parent link="object"/>
+		<child link="circle4"/>
+	</joint>
+
+    <link name="circle4">
+        <collision>
+            <origin xyz="${world_offset-circle_offset} ${-circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="${world_offset-circle_offset} ${-circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${circleHeight}" radius="${circleRadius}"/>
+            </geometry>
+        </visual>
+
+        <inertial>
+			<origin xyz="${world_offset-circle_offset} ${-circle_offset} ${objectHeight/2.0}" rpy="0 0 0"/>
+			<mass value="1"/>
+			<inertia
+			  ixx="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" ixy="0.0" ixz="0.0"
+			  iyy="${mass / 12.0 * (3*circleRadius*circleRadius + circleHeight*circleHeight)}" iyz="0.0"
+			  izz="${mass / 2.0 * (circleRadius*circleRadius)}"/>
+		</inertial>
+    </link>
+</robot>
